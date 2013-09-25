@@ -28,6 +28,7 @@
         <module>common</module>
         <module>hibernate</module>
         <module>jpa</module>
+        <module>service</module>		
     </modules>
 
     <build>
@@ -285,6 +286,9 @@
 
         <profile>
             <id>h2</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>			
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.h2.H2DataTypeFactory</dbunit.dataTypeFactoryName>
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>

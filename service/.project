@@ -1,0 +1,17 @@
+<projectDescription>
+  <name>appfuse-service</name>
+  <comment>Service layer for AppFuse-based applications. Includes JavaMail support, as well as Spring AOP
+        pointcuts that apply transaction attributes to all *Manager interfaces in a &quot;service&quot; package. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects>
+    <project>appfuse-data-common</project>
+    <project>appfuse-hibernate</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>
