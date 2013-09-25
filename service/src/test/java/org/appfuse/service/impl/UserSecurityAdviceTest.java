@@ -6,13 +6,15 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.service.UserSecurityAdvice;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.access.AccessDeniedException;
@@ -23,14 +25,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 
 import static org.junit.Assert.*;
-import static org.mockito.BDDMockito.given;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(JMock.class)
 public class UserSecurityAdviceTest {
-
-    @Mock
-    private UserDao userDao;
-
+    Mockery context = new JUnit4Mockery();
+    UserDao userDao = null;
     ApplicationContext ctx = null;
     SecurityContext initialSecurityContext = null;
 
@@ -91,7 +90,9 @@ public class UserSecurityAdviceTest {
         final User adminUser = new User("admin");
         adminUser.setId(2L);
 
-        given(userDao.saveUser(adminUser)).willReturn(adminUser);
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(adminUser)));
+        }});
 
         userManager.saveUser(adminUser);
     }
@@ -103,7 +104,9 @@ public class UserSecurityAdviceTest {
         user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        given(userDao.saveUser(user)).willReturn(user);
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+        }});
 
         userManager.saveUser(user);
     }
@@ -163,7 +166,9 @@ public class UserSecurityAdviceTest {
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        given(userDao.saveUser(user)).willReturn(user);
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+        }});
 
         userManager.saveUser(user);
     }
@@ -176,7 +181,9 @@ public class UserSecurityAdviceTest {
         user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        given(userDao.saveUser(user)).willReturn(user);
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+        }});
 
         userManager.saveUser(user);
     }
@@ -185,6 +192,9 @@ public class UserSecurityAdviceTest {
         ctx = new ClassPathXmlApplicationContext("/applicationContext-test.xml");
 
         UserManager userManager = (UserManager) ctx.getBean("target");
+
+        // Mock the userDao
+        userDao = context.mock(UserDao.class);
         userManager.setUserDao(userDao);
         return userManager;
     }

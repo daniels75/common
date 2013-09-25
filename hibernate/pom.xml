@@ -19,18 +19,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-		<groupId>org.daniels.commons</groupId>
-		<artifactId>commons-data</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+		<groupId>org.daniels.common</groupId>
+		<artifactId>common-data</artifactId>
+		 <version>2.2.1</version>
     </parent>
 
-    <artifactId>commons-hibernate</artifactId>
+    <artifactId>common-hibernate</artifactId>
     <packaging>jar</packaging>
     <name>Hibernate Module</name>
 
     <description>
        DAO backend implemented with Hibernate (http://hibernate.org).
     </description>
+
 
 
     <build>
@@ -80,7 +81,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <src>../common/src/test/resources/sample-data.xml</src>
+                    <src>src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <skip>${skipTests}</skip>
@@ -114,7 +115,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>commons-data-common</artifactId>
+            <artifactId>common-data-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

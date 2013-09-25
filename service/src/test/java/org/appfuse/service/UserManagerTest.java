@@ -1,7 +1,5 @@
 package org.appfuse.service;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
@@ -66,12 +64,4 @@ public class UserManagerTest extends BaseManagerTestCase {
             assertNotNull(e);
         }
     }
-    
-    @Test
-    public void testGetAll() throws Exception {
-        List<User> found = mgr.getAll();
-        assertEquals(3, found.size());
-    }
-
-
 }

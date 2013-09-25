@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-		<groupId>org.daniels.commons</groupId>
-		<artifactId>commons-data</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+		<groupId>org.daniels.common</groupId>
+		<artifactId>common-data</artifactId>
+		 <version>2.2.1</version>
     </parent>
 
-    <artifactId>commmons-service</artifactId>
+    <artifactId>common-service</artifactId>
     <packaging>jar</packaging>
     <name>Service Module</name>
 
     <description>
-        Service layer for applications. Includes JavaMail support, as well as Spring AOP
+        Service layer for  applications. Includes JavaMail support, as well as Spring AOP
         pointcuts that apply transaction attributes to all *Manager interfaces in a "service" package.
     </description>
 
@@ -33,7 +50,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <src>../common/src/test/resources/sample-data.xml</src>
+                    <src>src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <skip>${skipTests}</skip>
@@ -61,8 +78,8 @@
                 <configuration>
                     <!-- This piece of configuration is a workaround for this bug:
                          http://jira.codehaus.org/browse/SUREFIRE-519 -->
-                    <junitArtifactName>junit:junit-dep</junitArtifactName>
-                    <parallel>true</parallel>
+                     <junitArtifactName>junit:junit-dep</junitArtifactName>
+                     <parallel>true</parallel>
                 </configuration>
             </plugin>
         </plugins>
@@ -77,7 +94,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>commons-${dao.framework}</artifactId>
+            <artifactId>common-${dao.framework}</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -96,9 +113,18 @@
             <version>${javamail.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock</artifactId>
+            <version>${jmock.version}</version>
+            <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
+            <version>${jmock.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!-- Upgrade junit-dep used by jmock -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
